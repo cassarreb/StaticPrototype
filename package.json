@@ -1,0 +1,29 @@
+{
+  "name": "first-prototype",
+  "version": "1.0.0",
+  "description": "A prototype for serving static resources in a distributed manner.",
+  "main": "server.js",
+  "author": "Rebecca Kai Cassar",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      "package-json-versionify"
+    ]
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "path": "^0.12.7",
+    "safe-buffer": "^5.0.1",
+    "simple-sha1": "^2.0.8",
+    "webtorrent": "git+https://github.com/guerrerocarlos/webtorrent.git#cachep2p",
+    "systemjs": "0.20.14"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "debug": "^2.2.0",
+    "uglifyjs": "^2.4.10"
+  },
+  "scripts": {
+    "build": "browserify -s Cache3000 -e ./ | uglifyjs -c warnings=false -m > cachep2p.min.js"
+  }
+}
