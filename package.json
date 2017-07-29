@@ -23,8 +23,5 @@
     "browserify": "^13.0.1",
     "debug": "^2.2.0",
     "uglifyjs": "^2.4.10"
-  },
-  "scripts": {
-    "build": "browserify -s Cache3000 -e ./ | uglifyjs -c warnings=false -m > cachep2p.min.js"
   }
 }
