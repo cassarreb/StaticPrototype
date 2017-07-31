@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var port = 80
+var port = process.env.port || 1337;
 var app = express();
 var count = 0;
 

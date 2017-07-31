@@ -23,5 +23,6 @@
     "browserify": "^13.0.1",
     "debug": "^2.2.0",
     "uglifyjs": "^2.4.10"
-  }
+  },
+  "engines":{"node": "6.9.5"}
 }
