@@ -76,15 +76,15 @@ var torrent = client.seed("seed", { announceList: announceList }, function (torr
 //    })
 //});
 
-var start = Date.now();
-var dest = false;
-setInterval(function () {
-    //Ideally, here we stop the torrent from downloading
-    var end = Date.now();
+//var start = Date.now();
+//var dest = false;
+//setInterval(function () {
+//    //Ideally, here we stop the torrent from downloading
+//    var end = Date.now();
    
 
-    if (end - start > 30000 && !dest) {
-        client.destroy(function callback(err) { console.log("client has been destroyed")})
-        dest = true;
-    }
-}, 10000, client);
+//    if (end - start > 30000 && !dest) {
+//        client.destroy(function callback(err) { console.log("client has been destroyed")})
+//        dest = true;
+//    }
+//}, 10000, client);
