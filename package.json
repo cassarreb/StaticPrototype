@@ -15,7 +15,6 @@
     "path": "^0.12.7",
     "safe-buffer": "^5.0.1",
     "simple-sha1": "^2.0.8",
-    "webtorrent": "git+https://github.com/guerrerocarlos/webtorrent.git#cachep2p",
     "systemjs": "0.20.14",
     "webtorrent-hybrid": "1.0.6"
   },
