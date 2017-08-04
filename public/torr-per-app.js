@@ -1,3 +1,4 @@
+var start = Date.now();
 var Buffer = require('safe-buffer').Buffer
 var debug = require('debug')('all')
 var sha = require('simple-sha1')
@@ -27,19 +28,28 @@ announceList = [
 ]
 // "69bb1c7ec527703166bf3d217259e008f12aa9e1"
 //docs[window.location.pathname] 
-var magnet = 'magnet:?xt=urn:btih:' + "86ca860cfe67e2b7c676525fdb7e3850b41cdd1f" + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
+var magnet = 'magnet:?xt=urn:btih:' + "126eb445ddd59079c1754d1ce33dd3442281e673" + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
 
 
 torrent = client.add(magnet, onTorrent);
 console.log(torrent);
-
+torrent.on('done', function () {
+    console.log('torrent finished downloading');
+    torrent.files.forEach(function (file) {
+        // do something with file
+        console.log(file);
+    })
+})
+var start = Date.now();
 function onTorrent(torrent) {
     console.log(torrent);
-
+    
+   
    // var file_array = [];
     torrent.files.forEach(function (file) {
         //file_array.push a
-        console.log(file);
+        var end = Date.now();
+      
         var scriptTags = Array.from(document.getElementsByTagName("script"));
         var imageTags = Array.from(document.getElementsByTagName("img"));
         var styleTags = Array.from(document.getElementsByTagName("link"));
@@ -51,11 +61,13 @@ function onTorrent(torrent) {
                 altern = altern[altern.length - 1];
                 if (file.name == altern) {
                     //file.appendTo(listItem);
+                   
 
-
+                    console.log(file);
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
+                        console.log("time taken " + (end - start));
                         listItem.setAttribute("src", url);
                     })
                 }
@@ -71,9 +83,11 @@ function onTorrent(torrent) {
                     //file.appendTo(listItem);
 
 
+                    console.log(file);
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
+                        console.log("time taken " + (end - start));
                         listItem.setAttribute("src", url);
                     })
                 }
@@ -90,9 +104,11 @@ function onTorrent(torrent) {
                     //file.appendTo(listItem);
 
 
+                    console.log(file);
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
+                        console.log("time taken " + (end - start));
                         listItem.setAttribute("href", url);
                     })
                 }
@@ -102,7 +118,6 @@ function onTorrent(torrent) {
     })
 }
 
-var start = Date.now();
 setInterval(function () {
     //Ideally, here we stop the torrent from downloading
     var end = Date.now();

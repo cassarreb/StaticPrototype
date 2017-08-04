@@ -24,6 +24,8 @@ announceList = [
 
 var script_array = [];
 
+var start = Date.now();
+
 function fetch(altern) {
     var result = sha.sync(altern);
     var magnet = 'magnet:?xt=urn:btih:' + result + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
@@ -99,7 +101,7 @@ window.onload = function () {
             console.log("Script Src tag not empty. Adding to local storage.");
             //start seeding
             var url = listItem.getAttribute("src");
-            if (!url.includes("decider"))
+            if (!url.includes("torr-per"))
                 getViaHTTP(url, "data:text/javascript;base64,", listItem);
         }
     });
@@ -163,14 +165,19 @@ window.onload = function () {
         }
     });
 
-    for (var i = 0; i < localStorage.length; i++) {
-        
-        seed(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
-    }
-
+   
     var start = Date.now();
 
     setInterval(function () {
+
+        for (var i = 0; i < localStorage.length; i++) {
+
+            var key = sha.sync(localStorage.key(i));
+            if (client.get(key) == null)
+                seed(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
+        }
+
+
         var scripttags = Array.from(document.getElementsByTagName("script"));
         if (script_array.length == scripttags.length-1) {
             scripttags.forEach(function (listitem, index) {
@@ -186,7 +193,7 @@ window.onload = function () {
                
             });
         }  
-    }, 2000, script_array);
+    }, 2000, script_array, client);
 
     setInterval(function () {
         //Ideally, here we stop the torrent from downloading
@@ -225,6 +232,10 @@ window.onload = function () {
 function onTorrent(torrent) {
     torrent.files.forEach(function (file) {
         file.getBuffer(function (err, b) {
+
+           
+            var end = Date.now();
+            console.log("time diff: " + (end - start));
             if (err) return log(err.message)
             var payload = JSON.parse(b.toString('utf8'))     
             var obj_base64 = payload.obj;
