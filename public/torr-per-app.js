@@ -28,7 +28,7 @@ announceList = [
 ]
 // "69bb1c7ec527703166bf3d217259e008f12aa9e1"
 //docs[window.location.pathname] 
-var magnet = 'magnet:?xt=urn:btih:' + "126eb445ddd59079c1754d1ce33dd3442281e673" + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
+var magnet = 'magnet:?xt=urn:btih:' + "6317f97aeb5faf4b8c54aa9d61a8a79daa09c851" + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
 
 
 torrent = client.add(magnet, onTorrent);
