@@ -32,24 +32,25 @@ var magnet = 'magnet:?xt=urn:btih:' + "6317f97aeb5faf4b8c54aa9d61a8a79daa09c851"
 
 
 torrent = client.add(magnet, onTorrent);
+var start = Date.now();
 console.log(torrent);
+
+client.on('torrent', function (torrent) { var end = Date.now(); console.log("CLIENT.ONTORRENT has launched " + (end - start)); })
+//torrent.on('infoHash', function (infoHash) { console.log("TORRENT.INFOHASH has launched" + infoHash); })
+torrent.on('metadata', function (meta) { var end = Date.now(); console.log("TORRENT.METADATA has launched " + meta + " " + (end - start)); })
+torrent.on('ready', function (data) { var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data); })
+
+//torrent.on('warning', function (err) { console.log("TORRENT.WARNING has launched" + err); })
+torrent.on('error', function (err) { var end = Date.now(); console.log("TORRENT.ERROR has launched" + (end - start)); })
+torrent.on('download', function (bytes) { var end = Date.now(); console.log("TORRENT.DOWNLOAD has launched" + bytes + (end - start)); })
+torrent.on('upload', function (bytes) { var end = Date.now(); console.log("TORRENT.UPLOAD has launched" + bytes + (end - start)); })
+torrent.on('wire', function (wire) { var end = Date.now(); console.log("TORRENT.WIRE has launched" + wire.remoteAddress + " " + wire.type + " " + (end - start)); })
 torrent.on('done', function () {
     console.log('torrent finished downloading');
     torrent.files.forEach(function (file) {
         // do something with file
-        console.log(file);
-    })
-})
-var start = Date.now();
-function onTorrent(torrent) {
-    console.log(torrent);
-    
-   
-   // var file_array = [];
-    torrent.files.forEach(function (file) {
-        //file_array.push a
         var end = Date.now();
-      
+
         var scriptTags = Array.from(document.getElementsByTagName("script"));
         var imageTags = Array.from(document.getElementsByTagName("img"));
         var styleTags = Array.from(document.getElementsByTagName("link"));
@@ -61,13 +62,12 @@ function onTorrent(torrent) {
                 altern = altern[altern.length - 1];
                 if (file.name == altern) {
                     //file.appendTo(listItem);
-                   
+
 
                     console.log(file);
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
-                        console.log("time taken " + (end - start));
                         listItem.setAttribute("src", url);
                     })
                 }
@@ -87,12 +87,11 @@ function onTorrent(torrent) {
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
-                        console.log("time taken " + (end - start));
                         listItem.setAttribute("src", url);
                     })
                 }
             }
-          
+
         });
 
         styleTags.forEach(function (listItem, index) {
@@ -108,14 +107,24 @@ function onTorrent(torrent) {
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
-                        console.log("time taken " + (end - start));
                         listItem.setAttribute("href", url);
                     })
                 }
             }
         });
-        
     })
+})
+
+function onTorrent(torrent) {
+    console.log(torrent);
+    
+   
+   //// var file_array = [];
+   // torrent.files.forEach(function (file) {
+   //     //file_array.push a
+     
+        
+   // })
 }
 
 setInterval(function () {
