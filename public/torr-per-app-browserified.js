@@ -28435,8 +28435,11 @@ announceList = [
 //docs[window.location.pathname] 
 function logLocalStorage(message, req_no, status, timestamp) {
 
-    var currentStack = localStorage.getItem("log");
-    localStorage.setItem("log", currentStack + req_no + "," + message + "," + status + "," + timestamp+ "\n");
+    var currentStack = localStorage.getItem("log-p2p");
+    if (currentStack != null)
+        localStorage.setItem("log-p2p", currentStack + req_no + "," + message + "," + status + "," + timestamp + "\n");
+    else
+        localStorage.setItem("log-p2p", req_no + "," + message + "," + status + "," + timestamp + "\n");
 }
 
 var magnet = 'magnet:?xt=urn:btih:' + "5b9cbb7e198d501278906b977164ea57683e2266" + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
@@ -28658,6 +28661,34 @@ setInterval(function () {
         })
     }
 }, 3000);
+
+
+(function (console) {
+
+    console.save = function (data, filename) {
+
+        if (!data) {
+            console.error('Console.save: No data')
+            return;
+        }
+
+        if (!filename) filename = 'console.json'
+
+        if (typeof data === "object") {
+            data = JSON.stringify(data, undefined, 4)
+        }
+
+        var blob = new Blob([data], { type: 'text/json' }),
+            e = document.createEvent('MouseEvents'),
+            a = document.createElement('a')
+
+        a.download = filename
+        a.href = window.URL.createObjectURL(blob)
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
+        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+        a.dispatchEvent(e)
+    }
+})(console)
 
 
 },{"debug":57,"events":8,"inherits":66,"safe-buffer":107,"simple-sha1":111,"systemjs":118,"webtorrent-hybrid":131}]},{},[151]);
