@@ -28433,29 +28433,56 @@ announceList = [
 ]
 // "69bb1c7ec527703166bf3d217259e008f12aa9e1"
 //docs[window.location.pathname] 
+function logLocalStorage(message, req_no, status, timestamp) {
+
+    var currentStack = localStorage.getItem("log");
+    localStorage.setItem("log", currentStack + req_no + "," + message + "," + status + "," + timestamp+ "\n");
+}
+
 var magnet = 'magnet:?xt=urn:btih:' + "5b9cbb7e198d501278906b977164ea57683e2266" + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
 
 
 torrent = client.add(magnet, onTorrent);
 var start = Date.now();
+var download_count = 0;
+console.log(client.peerId);
 console.log(torrent);
 
-client.on('torrent', function (torrent) { var end = Date.now(); console.log("CLIENT.ONTORRENT has launched " + (end - start)); })
+client.on('torrent', function (torrent) {
+    var end = Date.now(); console.log("CLIENT.ONTORRENT has launched " + (end - start));
+    logLocalStorage("client.ONTORRENT", client.peerId, (end - start), Date.now());
+})
 //torrent.on('infoHash', function (infoHash) { console.log("TORRENT.INFOHASH has launched" + infoHash); })
-torrent.on('metadata', function (meta) { var end = Date.now(); console.log("TORRENT.METADATA has launched " + meta + " " + (end - start)); })
+
+torrent.on('metadata', function (meta) {
+    var end = Date.now(); console.log("TORRENT.METADATA has launched " + meta + " " + (end - start));
+    logLocalStorage("torrent.METADATA", client.peerId, (end - start), Date.now());
+})
+
 torrent.on('ready', function (data) { var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data); })
 
 //torrent.on('warning', function (err) { console.log("TORRENT.WARNING has launched" + err); })
 torrent.on('error', function (err) { var end = Date.now(); console.log("TORRENT.ERROR has launched" + (end - start)); })
-torrent.on('download', function (bytes) { var end = Date.now(); console.log("TORRENT.DOWNLOAD has launched" + bytes + (end - start)); })
+torrent.on('download', function (bytes) {
+    var end = Date.now(); console.log("TORRENT.DOWNLOAD has launched" + bytes + (end - start));
+    if (download_count == 0) {
+        logLocalStorage("torrent.DOWNLOAD-START", client.peerId, (end - start), Date.now());
+        download_count++;
+    }
+})
 torrent.on('upload', function (bytes) { var end = Date.now(); console.log("TORRENT.UPLOAD has launched" + bytes + (end - start)); })
 torrent.on('wire', function (wire) { var end = Date.now(); console.log("TORRENT.WIRE has launched" + wire.remoteAddress + " " + wire.type + " " + (end - start)); })
+
 torrent.on('done', function () {
+    var end = Date.now();
     console.log('torrent finished downloading');
+
+    console.log("time taken " + (end - start));
+    logLocalStorage("torrent.DOWNLOAD-END", client.peerId, (end - start), Date.now());
     torrent.files.forEach(function (file) {
         // do something with file
         console.log(file);
-        var end = Date.now();
+        
 
         var scriptTags = Array.from(document.getElementsByTagName("script"));
         var imageTags = Array.from(document.getElementsByTagName("img"));
@@ -28474,7 +28501,6 @@ torrent.on('done', function () {
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
-                        console.log("time taken " + (end - start));
                         listItem.setAttribute("src", url);
                     })
                 }
@@ -28494,7 +28520,6 @@ torrent.on('done', function () {
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
-                        console.log("time taken " + (end - start));
                         listItem.setAttribute("src", url);
                     })
                 }
@@ -28515,7 +28540,6 @@ torrent.on('done', function () {
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
-                        console.log("time taken " + (end - start));
                         listItem.setAttribute("href", url);
                     })
                 }
@@ -28634,4 +28658,6 @@ setInterval(function () {
         })
     }
 }, 3000);
+
+
 },{"debug":57,"events":8,"inherits":66,"safe-buffer":107,"simple-sha1":111,"systemjs":118,"webtorrent-hybrid":131}]},{},[151]);
