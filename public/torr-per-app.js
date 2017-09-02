@@ -211,3 +211,4 @@ setInterval(function () {
         a.dispatchEvent(e)
     }
 })(console)
+//console.save(localStorage.getItem("log-p2p"), "logging-" + Date.now() + ".txt")

@@ -28690,5 +28690,6 @@ setInterval(function () {
     }
 })(console)
 
+//console.save(localStorage.getItem("log-p2p"),"logging-"+Date.now()+".txt")
 
 },{"debug":57,"events":8,"inherits":66,"safe-buffer":107,"simple-sha1":111,"systemjs":118,"webtorrent-hybrid":131}]},{},[151]);
