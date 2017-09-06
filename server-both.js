@@ -14,8 +14,8 @@ count++;
                 console.log('time elapsed: ' + (end - start));
                 console.log("hit #" + count);
 
-var k = 36;
-console.log(format(firstkfib(k)));
+//var k = 36;
+//console.log(format(firstkfib(k)));
 next();
 //}, 2000);
 });
