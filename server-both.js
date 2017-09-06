@@ -3,12 +3,25 @@ var path = require('path');
 var port = 3000;
 var app = express();
 var count = 0;
+var countscript5 = 0;
+var countscript2 = 0;
+var countscript7 = 0;
+var countidex = 0;
 var start = Date.now();
 
 
 app.use(function (req, res, next) {
-    console.log(req.url);
-count++;
+    if (req.url.includes("script_5.js"))
+        countscript5++;
+    else if (req.url.includes("script_7.js"))
+        countscript7++;
+    else if (req.url.includes("script_2.js"))
+        countscript2++;
+    else if (req.url.includes("index"))
+        countidex++;
+
+    count++;
+    console.log(countscript2 + " " + countscript5 + " " + countscript7 + " " + countidex);
 //  setTimeout(function () {
                 var end = Date.now();
                 console.log('time elapsed: ' + (end - start));
