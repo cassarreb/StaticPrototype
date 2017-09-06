@@ -28413,7 +28413,8 @@ var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 var System = require('systemjs')
 var opts = {
-    maxConns: 100
+    maxConns: 100,
+    dht: false
 };
 
 var client = new WebTorrent(opts);
