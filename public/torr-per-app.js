@@ -68,6 +68,7 @@ torrent.on('download', function (bytes) {
 torrent.on('upload', function (bytes) { var end = Date.now(); console.log("TORRENT.UPLOAD has launched" + bytes + (end - start)); })
 torrent.on('wire', function (wire) { var end = Date.now(); console.log("TORRENT.WIRE has launched" + wire.remoteAddress + " " + wire.type + " " + (end - start)); })
 torrent.on('done', function () {
+    window.location.href = window.location.href + "#";
     console.log('torrent finished downloading');
     logLocalStorage("torrent.DOWNLOAD-END", client.peerId, (end - start), Date.now());
     torrent.files.forEach(function (file) {

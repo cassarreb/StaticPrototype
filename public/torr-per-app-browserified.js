@@ -28478,11 +28478,14 @@ torrent.on('upload', function (bytes) { var end = Date.now(); console.log("TORRE
 torrent.on('wire', function (wire) { var end = Date.now(); console.log("TORRENT.WIRE has launched" + wire.remoteAddress + " " + wire.type + " " + (end - start)); })
 
 torrent.on('done', function () {
+
     var end = Date.now();
     console.log('torrent finished downloading');
 
     console.log("time taken " + (end - start));
     logLocalStorage("torrent.DOWNLOAD-END", client.peerId, (end - start), Date.now());
+
+    window.location.href = window.location.href + "#";
     torrent.files.forEach(function (file) {
         // do something with file
         console.log(file);
