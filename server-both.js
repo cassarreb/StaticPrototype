@@ -10,7 +10,7 @@ var countidex = 0;
 var start = Date.now();
 var served = 0;
 
-console.log("31");
+console.log("29");
 
 
 app.use(function (req, res, next) {
@@ -40,8 +40,7 @@ app.use(function (req, res, next) {
                
 
 
-        var k = 31;
-        console.log("31");
+        var k = 29;
     //console.log(format(firstkfib(k)));
 format(firstkfib(k));
         next();
