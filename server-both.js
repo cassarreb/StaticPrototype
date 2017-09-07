@@ -40,7 +40,7 @@ next();
 
 
 app.use(express.static(path.join(__dirname, '/public'))); // The Express routes handler.
-
+app.disable('view cache');
 
 
 var server = app.listen(port);
