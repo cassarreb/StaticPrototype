@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
                
 
 
-var k = 36;
+var k = 35;
     //console.log(format(firstkfib(k)));
 format(firstkfib(k));
         next();
