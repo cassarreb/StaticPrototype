@@ -27,15 +27,17 @@ app.use(function (req, res, next) {
 
     served++;
     count++;
-    console.log(countscript2 + " " + countscript5 + " " + countscript7 + " " + countidex);
+    setTimeout(function () {
+        console.log(countscript2 + " " + countscript5 + " " + countscript7 + " " + countidex);
+        var end = Date.now();
+        console.log('time elapsed: ' + (end - start));
+        console.log("hit #" + count);
+        next();
+    }, 400)
 //  setTimeout(function () {
-                var end = Date.now();
-                console.log('time elapsed: ' + (end - start));
-                console.log("hit #" + count);
+               
 
-                setTimeout(function () {
-                    next();
-                },100)
+
 //var k = 36;
 //console.log(format(firstkfib(k)));
 
