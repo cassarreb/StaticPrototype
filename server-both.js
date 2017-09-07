@@ -12,28 +12,29 @@ var served = 0;
 
 
 app.use(function (req, res, next) {
-    if (req.url.includes("script_5.js"))
-        countscript5++;
-    else if (req.url.includes("script_7.js"))
-        countscript7++;
-    else if (req.url.includes("script_2.js"))
-        countscript2++;
-    else if (req.url.includes("index"))
-        countidex++;
-
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    res.header('Expires', '-1');
-    res.header('Pragma', 'no-cache');
-
-    served++;
-    count++;
+ 
     setTimeout(function () {
+        if (req.url.includes("script_5.js"))
+            countscript5++;
+        else if (req.url.includes("script_7.js"))
+            countscript7++;
+        else if (req.url.includes("script_2.js"))
+            countscript2++;
+        else if (req.url.includes("index"))
+            countidex++;
+
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+
+        served++;
+        count++;
         console.log(countscript2 + " " + countscript5 + " " + countscript7 + " " + countidex);
         var end = Date.now();
         console.log('time elapsed: ' + (end - start));
         console.log("hit #" + count);
         next();
-    }, 400, countscript2, countscript5, countscript7, countidex,start,count)
+    }, 4000)
 //  setTimeout(function () {
                
 
