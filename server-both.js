@@ -21,6 +21,10 @@ app.use(function (req, res, next) {
     else if (req.url.includes("index"))
         countidex++;
 
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+
     served++;
     count++;
     console.log(countscript2 + " " + countscript5 + " " + countscript7 + " " + countidex);
