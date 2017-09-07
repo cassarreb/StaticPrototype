@@ -8,6 +8,7 @@ var countscript2 = 0;
 var countscript7 = 0;
 var countidex = 0;
 var start = Date.now();
+var served = 0;
 
 
 app.use(function (req, res, next) {
@@ -20,6 +21,7 @@ app.use(function (req, res, next) {
     else if (req.url.includes("index"))
         countidex++;
 
+    served++;
     count++;
     console.log(countscript2 + " " + countscript5 + " " + countscript7 + " " + countidex);
 //  setTimeout(function () {
@@ -43,6 +45,11 @@ app.use(express.static(path.join(__dirname, '/public'))); // The Express routes 
 
 var server = app.listen(port);
 server.timeout = 10000;
+var served = 
+setInterval(function () {
+    console.log('Requests per second:' + served);
+    served = 0;
+}, 1000);
 
 
 var Buffer = require('safe-buffer').Buffer
