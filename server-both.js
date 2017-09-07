@@ -10,6 +10,8 @@ var countidex = 0;
 var start = Date.now();
 var served = 0;
 
+console.log("31");
+
 
 app.use(function (req, res, next) {
     if (req.url.includes("script_5.js"))
@@ -38,7 +40,8 @@ app.use(function (req, res, next) {
                
 
 
-var k = 33;
+        var k = 31;
+        console.log("31");
     //console.log(format(firstkfib(k)));
 format(firstkfib(k));
         next();
