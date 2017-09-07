@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
         console.log('time elapsed: ' + (end - start));
         console.log("hit #" + count);
         next();
-    }, 400)
+    }, 400, countscript2, countscript5, countscript7, countidex,start,count)
 //  setTimeout(function () {
                
 
