@@ -72,12 +72,8 @@ var debug = require('debug')('all')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 var System = require('systemjs')
-var opts = {
-    maxConns: 100,
-    dht: false
-};
 
-var client = new WebTorrent(opts);
+
 
 announceList = [
  ['udp://tracker.openbittorrent.com:80'],
@@ -88,6 +84,13 @@ announceList = [
  ['wss://tracker.btorrent.xyz'],
  ['wss://tracker.openwebtorrent.com'],
 ]
+var opts = {
+    maxConns: 100,
+    dht: false,
+  //  announce: announceList
+};
+
+var client = new WebTorrent(opts);
 if (WebTorrent.WEBRTC_SUPPORT) {
     console.log("webrtc supported");
 } else {

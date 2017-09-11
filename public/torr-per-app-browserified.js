@@ -28412,12 +28412,7 @@ var debug = require('debug')('all')
 var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 var System = require('systemjs')
-var opts = {
-    maxConns: 100,
-    dht: false
-};
 
-var client = new WebTorrent(opts);
 //var docs = {
 //    "/index.html": "fdc3847a90aa0370aced0ced0798ea9214f087f9",
 //    "/link.html": "caf83582da8c16230d73c1a5034e7d94c8d6982b"
@@ -28430,8 +28425,16 @@ announceList = [
  ['udp://tracker.coppersurfer.tk:6969'],
  ['udp://exodus.desync.com:6969'],
  ['wss://tracker.btorrent.xyz'],
- ['wss://tracker.openwebtorrent.com'],
-]
+ ['wss://tracker.openwebtorrent.com']
+ ]
+
+var opts = {
+    maxConns: 100,
+    dht: false,
+    announce: announceList
+};
+
+var client = new WebTorrent(opts);
 // "69bb1c7ec527703166bf3d217259e008f12aa9e1"
 //docs[window.location.pathname] 
 function logLocalStorage(message, req_no, status, timestamp) {
@@ -28442,10 +28445,9 @@ function logLocalStorage(message, req_no, status, timestamp) {
     else
         localStorage.setItem("log-p2p", req_no + "," + message + "," + status + "," + timestamp + "\n");
 }
-    //localhost:f8140fc49876deafccc855bcc6fb03a19e06e190
-
-var magnet = 'magnet:?xt=urn:btih:' + "5b9cbb7e198d501278906b977164ea57683e2266" + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
-
+    //server aws: 5b9cbb7e198d501278906b977164ea57683e2266
+    var path = "eba9512a654c52009b87b422aacc716131186d10";
+var magnet = 'magnet:?xt=urn:btih:' + path + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
 
 torrent = client.add(magnet, onTorrent);
 var start = Date.now();
