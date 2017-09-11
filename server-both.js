@@ -82,7 +82,7 @@ announceList = [
  ['udp://tracker.coppersurfer.tk:6969'],
  ['udp://exodus.desync.com:6969'],
  ['wss://tracker.btorrent.xyz'],
- ['wss://tracker.openwebtorrent.com'],
+// ['wss://tracker.openwebtorrent.com'],
 ]
 var opts = {
     maxConns: 100,
