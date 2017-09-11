@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
                
 
 
-        var k = 33;
+        var k = 32;
     //console.log(format(firstkfib(k)));
 format(firstkfib(k));
         next();
@@ -57,11 +57,11 @@ app.disable('view cache');
 
 var server = app.listen(port);
 server.timeout = 10000;
-var served = 
-setInterval(function () {
-    console.log('Requests per second:' + served);
-    served = 0;
-}, 1000);
+//var served = 
+//setInterval(function () {
+//    console.log('Requests per second:' + served);
+//    served = 0;
+//}, 1000);
 
 
 var Buffer = require('safe-buffer').Buffer
