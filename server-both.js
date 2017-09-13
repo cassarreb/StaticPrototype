@@ -42,7 +42,7 @@ app.use(function (req, res, next) {
 
         var k = 32;
     //console.log(format(firstkfib(k)));
-format(firstkfib(k));
+//format(firstkfib(k));
         next();
 //}, 2000);
 });
