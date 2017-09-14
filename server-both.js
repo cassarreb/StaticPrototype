@@ -9,8 +9,8 @@ var countscript7 = 0;
 var countidex = 0;
 var start = Date.now();
 var served = 0;
-
-console.log("33");
+var k = 35;
+console.log(k);
 
 
 app.use(function (req, res, next) {
@@ -40,9 +40,8 @@ app.use(function (req, res, next) {
                
 
 
-        var k = 32;
     //console.log(format(firstkfib(k)));
- //   format(firstkfib(k));
+    format(firstkfib(k));
         next();
 //}, 2000);
 });
