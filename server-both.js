@@ -9,7 +9,7 @@ var countscript7 = 0;
 var countidex = 0;
 var start = Date.now();
 var served = 0;
-var k = 36;
+var k = 35;
 console.log(k);
 
 
