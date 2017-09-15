@@ -95,7 +95,7 @@ if (WebTorrent.WEBRTC_SUPPORT) {
 } else {
     console.log("webrtc NOT supported");
 }
-var torrent = client.seed("seed", { announceList: announceList }, function (torrent) {
+var torrent = client.seed("seed", { announceList: announceList, maxWebConns: 100 }, function (torrent) {
 
     //var torrent = client.seed(buffer_payload, { forced_id: url_hash, announceList: announceList }, function (torrent) {
     console.log(torrent.magnetURI);
