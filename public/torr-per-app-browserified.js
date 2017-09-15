@@ -28456,24 +28456,14 @@ var start = Date.now();
 var download_count = 0;
     // Remove default selection (whole torrent)
 torrent.deselect(0, torrent.pieces.length - 1, false)
-
-for (var i = 0; i < torrent.files.length; i++) {
-    const file = torrent.files[i]
-
-    if (true) {
-        file.select()
-        console.log('selecting file ' + i + ' of torrent ' + torrent.name)
-    } else {
-        console.log('deselecting file ' + i + ' of torrent ' + torrent.name)
-        file.deselect()
-    }
-}
+var selections = [true, true, false, false, true];
 
     // Add selections (individual files)
 for (var i = 0; i < selections.length; i++) {
     const file = torrent.files[i]
     if (selections[i]) {
         file.select()
+        console.log('selecting file ' + i + ' of torrent ' + torrent.name)
     } else {
         console.log('deselecting file ' + i + ' of torrent ' + torrent.name)
         file.deselect()
