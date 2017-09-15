@@ -28458,17 +28458,7 @@ var download_count = 0;
 torrent.deselect(0, torrent.pieces.length - 1, false)
 var selections = [true, true, false, false, true];
 
-    // Add selections (individual files)
-for (var i = 0; i < selections.length; i++) {
-    const file = torrent.files[i]
-    if (selections[i]) {
-        file.select()
-        console.log('selecting file ' + i + ' of torrent ' + torrent.name)
-    } else {
-        console.log('deselecting file ' + i + ' of torrent ' + torrent.name)
-        file.deselect()
-    }
-}
+
 
 console.log(client.peerId);
 console.log(torrent);
@@ -28482,6 +28472,18 @@ client.on('torrent', function (torrent) {
 torrent.on('metadata', function (meta) {
     var end = Date.now(); console.log("TORRENT.METADATA has launched " + meta + " " + (end - start));
     logLocalStorage("torrent.METADATA", client.peerId, (end - start), Date.now());
+
+    // Add selections (individual files)
+    for (var i = 0; i < selections.length; i++) {
+        const file = torrent.files[i]
+        if (selections[i]) {
+            file.select()
+            console.log('selecting file ' + i + ' of torrent ' + torrent.name)
+        } else {
+            console.log('deselecting file ' + i + ' of torrent ' + torrent.name)
+            file.deselect()
+        }
+    }
 })
 
 torrent.on('ready', function (data) { var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data); })
