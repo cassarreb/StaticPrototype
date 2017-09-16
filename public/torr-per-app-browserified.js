@@ -28471,7 +28471,7 @@ client.on('torrent', function (torrent) {
 torrent.on('metadata', function (meta) {
     var end = Date.now(); console.log("TORRENT.METADATA has launched " + meta + " " + (end - start));
     logLocalStorage("torrent.METADATA", client.peerId, (end - start), Date.now());
-    torrent.deselect(0, torrent.pieces.length - 1, false);
+    torrent.deselect(0, torrent.pieces.length, false);
     // Add selections (individual files)
     for (var i = 0; i < selections.length; i++) {
         const file = torrent.files[i]
