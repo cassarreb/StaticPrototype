@@ -28474,7 +28474,22 @@ torrent.on('metadata', function (meta) {
    
 })
 
-torrent.on('ready', function (data) { var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data); })
+torrent.on('ready', function (data) {
+    var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data);
+    console.log(torrent);
+    torrent.deselect(0, torrent.pieces.length, false);
+    // Add selections (individual files)
+    for (var i = 0; i < selections.length; i++) {
+        const file = torrent.files[i]
+        if (selections[i]) {
+            file.select();
+            console.log('selecting file ' + i + ' of torrent ' + torrent.name);
+        } else {
+            console.log('deselecting file ' + i + ' of torrent ' + torrent.name);
+            file.deselect();
+        }
+    }
+})
 
 //torrent.on('warning', function (err) { console.log("TORRENT.WARNING has launched" + err); })
 torrent.on('error', function (err) { var end = Date.now(); console.log("TORRENT.ERROR has launched" + (end - start)); })
@@ -28567,19 +28582,6 @@ torrent.on('done', function () {
 })
 
 function onTorrent(torrent) {
-    console.log(torrent);
-    torrent.deselect(0, torrent.pieces.length, false);
-    // Add selections (individual files)
-    for (var i = 0; i < selections.length; i++) {
-        const file = torrent.files[i]
-        if (selections[i]) {
-            file.select();
-            console.log('selecting file ' + i + ' of torrent ' + torrent.name);
-        } else {
-            console.log('deselecting file ' + i + ' of torrent ' + torrent.name);
-            file.deselect();
-        }
-    }
    
    // var file_array = [];
     torrent.files.forEach(function (file) {
