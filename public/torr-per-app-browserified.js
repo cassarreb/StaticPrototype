@@ -28456,9 +28456,6 @@ torrent = client.add(magnet, { maxWebConns: 100 }, onTorrent);
 var start = Date.now();
 var download_count = 0;
     // Remove default selection (whole torrent)
-var selections = [true,true,true,false,false,false,false,false,false,false,false];
-
-
 
 console.log(client.peerId);
 console.log(torrent);
@@ -28478,18 +28475,21 @@ torrent.on('metadata', function (meta) {
 torrent.on('ready', function (data) {
     var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data);
     console.log(torrent);
-    torrent.deselect(0, torrent.pieces.length-1, false);
+    torrent.deselect(0, torrent.pieces.length - 1, false);
+    torrent._selections = [true, true, true, false, false, false, false, false, false, false, false];
+
+
     // Add selections (individual files)
-    for (var i = 0; i < selections.length; i++) {
-        const file = torrent.files[i]
-        if (selections[i]) {
-            file.select();
-            console.log('selecting file ' + i + ' of torrent ' + torrent.name);
-        } else {
-            console.log('deselecting file ' + i + ' of torrent ' + torrent.name);
-            file.deselect();
-        }
-    }
+    //for (var i = 0; i < selections.length; i++) {
+    //    const file = torrent.files[i]
+    //    if (selections[i]) {
+    //        file.select();
+    //        console.log('selecting file ' + i + ' of torrent ' + torrent.name);
+    //    } else {
+    //        console.log('deselecting file ' + i + ' of torrent ' + torrent.name);
+    //        file.deselect();
+    //    }
+    //}
 })
 
 //torrent.on('warning', function (err) { console.log("TORRENT.WARNING has launched" + err); })
