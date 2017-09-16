@@ -28471,18 +28471,7 @@ client.on('torrent', function (torrent) {
 torrent.on('metadata', function (meta) {
     var end = Date.now(); console.log("TORRENT.METADATA has launched " + meta + " " + (end - start));
     logLocalStorage("torrent.METADATA", client.peerId, (end - start), Date.now());
-    torrent.deselect(0, torrent.pieces.length, false);
-    // Add selections (individual files)
-    for (var i = 0; i < selections.length; i++) {
-        const file = torrent.files[i]
-        if (selections[i]) {
-            file.select();
-            console.log('selecting file ' + i + ' of torrent ' + torrent.name);
-        } else {
-            console.log('deselecting file ' + i + ' of torrent ' + torrent.name);
-            file.deselect();
-        }
-    }
+   
 })
 
 torrent.on('ready', function (data) { var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data); })
@@ -28579,7 +28568,18 @@ torrent.on('done', function () {
 
 function onTorrent(torrent) {
     console.log(torrent);
-    
+    torrent.deselect(0, torrent.pieces.length, false);
+    // Add selections (individual files)
+    for (var i = 0; i < selections.length; i++) {
+        const file = torrent.files[i]
+        if (selections[i]) {
+            file.select();
+            console.log('selecting file ' + i + ' of torrent ' + torrent.name);
+        } else {
+            console.log('deselecting file ' + i + ' of torrent ' + torrent.name);
+            file.deselect();
+        }
+    }
    
    // var file_array = [];
     torrent.files.forEach(function (file) {
