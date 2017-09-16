@@ -28527,17 +28527,17 @@ torrent.on('done', function () {
             if (altern != null) {
                 altern = altern.split("/");
                 altern = altern[altern.length - 1];
-                if (file.name == altern) {
-                    //file.appendTo(listItem);
+                //if (file.name == altern) {
+                //    //file.appendTo(listItem);
 
 
-                    console.log(file);
-                    file.getBlobURL(function (err, url) {
-                        if (err) throw err
-                        console.log(url);
-                      //  listItem.setAttribute("src", url);
-                    })
-                }
+                //    console.log(file);
+                //    file.getBlobURL(function (err, url) {
+                //        if (err) throw err
+                //        console.log(url);
+                //        listItem.setAttribute("src", url);
+                //    })
+                //}
             }
         });
 
