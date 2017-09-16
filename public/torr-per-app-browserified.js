@@ -28535,7 +28535,7 @@ torrent.on('done', function () {
                     file.getBlobURL(function (err, url) {
                         if (err) throw err
                         console.log(url);
-                        listItem.setAttribute("src", url);
+                      //  listItem.setAttribute("src", url);
                     })
                 }
             }
