@@ -28456,7 +28456,7 @@ torrent = client.add(magnet, { maxWebConns: 100 }, onTorrent);
 var start = Date.now();
 var download_count = 0;
     // Remove default selection (whole torrent)
-var selections = [true, true, false, false, true];
+var selections = [true,true,true,false,false,false,false,false,false,false,false];
 
 
 
@@ -28478,7 +28478,7 @@ torrent.on('metadata', function (meta) {
 torrent.on('ready', function (data) {
     var end = Date.now(); console.log("TORRENT.READY has launched" + (end - start) + data);
     console.log(torrent);
-    torrent.deselect(0, torrent.pieces.length, false);
+    torrent.deselect(0, torrent.pieces.length-1, false);
     // Add selections (individual files)
     for (var i = 0; i < selections.length; i++) {
         const file = torrent.files[i]
