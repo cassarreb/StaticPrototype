@@ -102,7 +102,7 @@ if (WebTorrent.WEBRTC_SUPPORT) {
 } else {
     console.log("webrtc NOT supported");
 }
-var torrent = client.seed("seed", { announceList: announceList, maxWebConns: 100 }, function (torrent) {
+var torrent = client.seed("seed/link/", { announceList: announceList, maxWebConns: 100 }, function (torrent) {
 
     //var torrent = client.seed(buffer_payload, { forced_id: url_hash, announceList: announceList }, function (torrent) {
     console.log(torrent.magnetURI);
@@ -114,6 +114,22 @@ var torrent = client.seed("seed", { announceList: announceList, maxWebConns: 100
         console.log('Peer (' + wire.remoteAddress + ') connected over ' + wire.type + '.')
     })
 });
+
+
+
+var torrent2 = client.seed("seed/index/", { announceList: announceList }, function (torrent2) {
+
+    //var torrent = client.seed(buffer_payload, { forced_id: url_hash, announceList: announceList }, function (torrent) {
+    console.log(torrent2.magnetURI);
+
+    torrent2.on('upload', function (bytes) {
+        console.log('Sending this object to peer (' + bytes + ' bytes)')
+    })
+    torrent2.on('wire', function (wire) {
+        console.log('Peer (' + wire.remoteAddress + ') connected over ' + wire.type + '.')
+    })
+});
+
 
 
 var fibonacci = function (n) {
