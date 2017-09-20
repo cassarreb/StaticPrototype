@@ -8,6 +8,8 @@ var countscript2 = 0;
 var countscript7 = 0;
 var countidex = 0;
 var start = Date.now();
+var mid1 = 0;
+var mid2 = 0;
 var served = 0;
 var k = 39;
 console.log(k);
@@ -33,6 +35,8 @@ app.use(function (req, res, next) {
         console.log(countscript2 + " " + countscript5 + " " + countscript7 + " " + countidex);
         var end = Date.now();
         console.log('time elapsed: ' + (end - start));
+        mid1 = Date.now();
+       
         console.log("hit #" + count);
        
    // }, 4000)
@@ -41,7 +45,10 @@ app.use(function (req, res, next) {
 
 
     //console.log(format(firstkfib(k)));
-    format(firstkfib(k));
+        format(firstkfib(k));
+
+        mid2 = Date.now();
+        console.log('DELAY: ' + (mid2 - mid1));
         next();
 //}, 2000);
 });
