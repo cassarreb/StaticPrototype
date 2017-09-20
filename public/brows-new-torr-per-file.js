@@ -28394,7 +28394,7 @@ var opts = {
 
 var client = new WebTorrent(opts);
 
-announceList = [
+announce = [
  ['udp://tracker.openbittorrent.com:80'],
  ['udp://tracker.internetwarriors.net:1337'],
  ['udp://tracker.leechers-paradise.org:6969'],
@@ -28402,6 +28402,7 @@ announceList = [
  ['udp://exodus.desync.com:6969'],
  ['wss://tracker.btorrent.xyz'],
  ['wss://tracker.openwebtorrent.com'],
+ ["wss://tracker.fastcast.nz"]
 ]
 
 var script_array = [];
@@ -28410,18 +28411,19 @@ var start = Date.now();
 
 function fetch(altern) {
     var result = sha.sync(altern);
- //   var magnet = 'magnet:?xt=urn:btih:' + result + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
+    //   var magnet = 'magnet:?xt=urn:btih:' + result + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com'
 
     var magnet = 'magnet:?xt=urn:btih:' + result + '&dn=Unnamed+Torrent+1505659169501&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com';
 
     console.log("fetching " + altern + " " + result);
-    torrent = client.add(magnet, onTorrent);
-    //console.log(torrent);
-   // console.log("time in fetch " + System.nanoTime());
+    var torrent = client.add(magnet, onTorrent);
+
+    console.log(torrent);
+    // console.log("time in fetch " + System.nanoTime());
 
     torrent.on('done', function (info) {
-       // endTime = System.nanoTime();
-      //  console.log("time in torrent done " + System.nanoTime());
+        // endTime = System.nanoTime();
+        //  console.log("time in torrent done " + System.nanoTime());
         console.log('Cache received');
 
         torrent.files.forEach(function (file) {
@@ -28445,32 +28447,32 @@ function fetch(altern) {
                         }
                     });
                 }
-                else if (obj_base64.includes("data:text/javascript;base64")) {
-                    console.log("got script");
+                //else if (obj_base64.includes("data:text/javascript;base64")) {
+                //    console.log("got script");
 
-                    var scriptTags = Array.from(document.getElementsByTagName("script"));
-                    scriptTags.forEach(function (listItem, index) {
-                        if (listItem.getAttribute("altern") == payload.resource) {
-                            console.log("adding script to array");
-                            script_array.push({
-                                key: listItem.getAttribute("altern"),
-                                value: obj_base64
-                            });
-                            localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
-                        }
-                    });
-                }
-                else if (obj_base64.includes("data:text/css;base64")) {
-                    console.log("got style");
+                //    var scriptTags = Array.from(document.getElementsByTagName("script"));
+                //    scriptTags.forEach(function (listItem, index) {
+                //        if (listItem.getAttribute("altern") == payload.resource) {
+                //            console.log("adding script to array");
+                //            script_array.push({
+                //                key: listItem.getAttribute("altern"),
+                //                value: obj_base64
+                //            });
+                //            localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
+                //        }
+                //    });
+                //}
+                //else if (obj_base64.includes("data:text/css;base64")) {
+                //    console.log("got style");
 
-                    var styleTags = Array.from(document.getElementsByTagName("link"));
-                    styleTags.forEach(function (listItem, index) {
-                        if (listItem.getAttribute("altern") == payload.resource) {
-                            listItem.setAttribute("href", obj_base64);
-                            localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
-                        }
-                    });
-                }
+                //    var styleTags = Array.from(document.getElementsByTagName("link"));
+                //    styleTags.forEach(function (listItem, index) {
+                //        if (listItem.getAttribute("altern") == payload.resource) {
+                //            listItem.setAttribute("href", obj_base64);
+                //            localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
+                //        }
+                //    });
+                //}
             })
         })
 
@@ -28484,7 +28486,7 @@ function fetch(altern) {
 
     torrent.on('metadata', function (meta) {
         var end = Date.now(); console.log("TORRENT.METADATA has launched " + meta + " " + (end - start));
-       
+
     })
 
     torrent.on('upload', function (bytes) { var end = Date.now(); console.log("TORRENT.UPLOAD has launched" + bytes + (end - start)); })
@@ -28499,96 +28501,96 @@ function seed(url, base64obj) {
             console.log("Starting to seed " + url + " " + url_hash);
 
 
-            var torrent = client.seed(buffer_payload, { forced_id: url_hash, announceList: announceList }, function (torrent) {
-                console.log(torrent.magnetURI);
+            var torrent = client.seed(buffer_payload, { forced_id: url_hash, announceList: announce }, function (torrent) {
+                console.log(torrent);
 
                 torrent.on('upload', function (bytes) {
                     console.log('Sending this object to peer (' + bytes + ' bytes)')
                 })
                 torrent.on('wire', function (wire) {
                     console.log('Peer (' + wire.remoteAddress + ') connected over ' + wire.type + '.')
-                })
-          });
+                })  
+            });
         });
     });
 }
 
 window.onload = function () {
 
-    var rand = Math.random();
+   // var rand = Math.random();
     var imageTags = Array.from(document.getElementsByTagName("img"));
     var scriptTags = Array.from(document.getElementsByTagName("script"));
     var styleTags = Array.from(document.getElementsByTagName("link"));
 
-    scriptTags.forEach(function (listItem, index) {  
-        if (listItem.getAttribute("src") == null || listItem.getAttribute("src") == "#") {
-            if (localStorage.getItem(listItem.getAttribute("altern")) != null) {
-               // listItem.setAttribute("src", localStorage.getItem(listItem.getAttribute("altern")));
-                console.log("OBTAINED " + listItem.getAttribute("altern") + " FROM LOCAL STORAGE");
-                script_array.push({
-                    key: listItem.getAttribute("altern"),
-                    value: localStorage.getItem(listItem.getAttribute("altern"))
-                });
-            }
-            else {
-                //have to get from peers
-                //if peer not found, get from server
-                console.log("Script Empty. Must find peer.");
-                console.log("Attempting to fetch from peers : " +  listItem.getAttribute("altern"));
-                fetch(listItem.getAttribute("altern"));
-            }
-        }
-        else {
-            console.log("Script Src tag not empty. Adding to local storage.");
-            //start seeding
-            var url = listItem.getAttribute("src");
-            if (!url.includes("torr-per"))
-                getViaHTTP(url, "data:text/javascript;base64,", listItem);
-        }
-    });
+    //scriptTags.forEach(function (listItem, index) {
+    //    if (listItem.getAttribute("src") == null || listItem.getAttribute("src") == "#") {
+    //        if (localStorage.getItem(listItem.getAttribute("altern")) != null) {
+    //            // listItem.setAttribute("src", localStorage.getItem(listItem.getAttribute("altern")));
+    //            console.log("OBTAINED " + listItem.getAttribute("altern") + " FROM LOCAL STORAGE");
+    //            script_array.push({
+    //                key: listItem.getAttribute("altern"),
+    //                value: localStorage.getItem(listItem.getAttribute("altern"))
+    //            });
+    //        }
+    //        else {
+    //            //have to get from peers
+    //            //if peer not found, get from server
+    //            console.log("Script Empty. Must find peer.");
+    //            console.log("Attempting to fetch from peers : " + listItem.getAttribute("altern"));
+    //            fetch(listItem.getAttribute("altern"));
+    //        }
+    //    }
+    //    else {
+    //        console.log("Script Src tag not empty. Adding to local storage.");
+    //        //start seeding
+    //        var url = listItem.getAttribute("src");
+    //        if (!url.includes("torr-per"))
+    //            getViaHTTP(url, "data:text/javascript;base64,", listItem);
+    //    }
+    //});
 
-    styleTags.forEach(function (listItem, index) {
-     
-        if (listItem.getAttribute("href") == null || listItem.getAttribute("href") == "#") {
-            if (localStorage.getItem(listItem.getAttribute("altern")) != null) {
-                listItem.setAttribute("href", localStorage.getItem(listItem.getAttribute("altern")));
-                console.log("OBTAINED " + listItem.getAttribute("altern") + " FROM LOCAL STORAGE");
-            }
-            else {
-                //have to get from peers
-                //if peer not found, get from server
-                console.log("Style Empty. Must find peer.");
-                console.log("Attempting to fetch from peers: " +  listItem.getAttribute("altern"));
-                fetch(listItem.getAttribute("altern"));
-            }
-        }
-        else {
-            console.log("Style Link Href tag not empty. Adding to local storage.");
-            //start seeding
-            var url = listItem.getAttribute('href');
-            getViaHTTP(url, "data:text/css;base64,", listItem);     
-        }
-    });
+    //styleTags.forEach(function (listItem, index) {
+
+    //    if (listItem.getAttribute("href") == null || listItem.getAttribute("href") == "#") {
+    //        if (localStorage.getItem(listItem.getAttribute("altern")) != null) {
+    //            listItem.setAttribute("href", localStorage.getItem(listItem.getAttribute("altern")));
+    //            console.log("OBTAINED " + listItem.getAttribute("altern") + " FROM LOCAL STORAGE");
+    //        }
+    //        else {
+    //            //have to get from peers
+    //            //if peer not found, get from server
+    //            console.log("Style Empty. Must find peer.");
+    //            console.log("Attempting to fetch from peers: " + listItem.getAttribute("altern"));
+    //            fetch(listItem.getAttribute("altern"));
+    //        }
+    //    }
+    //    else {
+    //        console.log("Style Link Href tag not empty. Adding to local storage.");
+    //        //start seeding
+    //        var url = listItem.getAttribute('href');
+    //        getViaHTTP(url, "data:text/css;base64,", listItem);
+    //    }
+    //});
 
     imageTags.forEach(function (listItem, index) {
         if (listItem.getAttribute("src") == null || listItem.getAttribute("src") == "#") {
             //if empty: check local storage first then fetch
-            if (localStorage.getItem(listItem.getAttribute("altern")) != null) {
-                listItem.setAttribute("src", localStorage.getItem(listItem.getAttribute("altern")));
-                console.log("OBTAINED " + listItem.getAttribute("altern") + " FROM LOCAL STORAGE");
-            }
-            else {
+           // if (localStorage.getItem(listItem.getAttribute("altern")) != null) {
+              //  listItem.setAttribute("src", localStorage.getItem(listItem.getAttribute("altern")));
+              //  console.log("OBTAINED " + listItem.getAttribute("altern") + " FROM LOCAL STORAGE");
+           // }
+           // else {
                 //have to get from peers
                 //if peer not found, get from server
-                console.log("Image Empty. Must find peer.");
-                console.log("Attempting to fetch from peers : " +  listItem.getAttribute("altern"));
+                //console.log("Image Empty. Must find peer.");
+                console.log("Attempting to fetch from peers : " + listItem.getAttribute("altern"));
                 // console.log("time before fetch " + System.currentTimeMillis());
                 fetch(listItem.getAttribute("altern"));
-            }
+           // }
         }
         else {
-            console.log("img tag not empty. Adding to local storage.");
-          
+            console.log("img tag not empty. Starting to seed.");
+
             // Create an empty canvas element
             var canvas = document.createElement("canvas");
             canvas.width = listItem.width;
@@ -28601,63 +28603,62 @@ window.onload = function () {
             // Get the data-URL formatted image
             //PNG OR OTHER TYPES!
             var dataURL = canvas.toDataURL("image/png");
-            localStorage.setItem(listItem.getAttribute("src"), dataURL);
-            //seed(url, dataURL);
+
+          //  localStorage.setItem(listItem.getAttribute("src"), dataURL);
+            seed(url, dataURL);
         }
     });
 
-   
+
     var start = Date.now();
 
-    setInterval(function () {
+    //setInterval(function () {
 
-        for (var i = 0; i < localStorage.length; i++) {
+    //    for (var i = 0; i < localStorage.length; i++) {
 
-            var key = sha.sync(localStorage.key(i));
-            if (client.get(key) == null)
-                seed(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
-        }
+    //        var key = sha.sync(localStorage.key(i));
+    //        if (client.get(key) == null)
+    //            seed(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
+    //    }
+
+    //    var scripttags = Array.from(document.getElementsByTagName("script"));
+    //    if (script_array.length == scripttags.length - 1) {
+    //        scripttags.forEach(function (listitem, index) {
+    //            script_array.forEach(function (script, index_inner) {
+    //                if (listitem.getAttribute("altern") == script.key) {
+    //                    // console.log("script being set here");
+    //                    listitem.setAttribute("src", script.value);
+    //                }
 
 
-        var scripttags = Array.from(document.getElementsByTagName("script"));
-        if (script_array.length == scripttags.length-1) {
-            scripttags.forEach(function (listitem, index) {
-                script_array.forEach(function (script, index_inner) {
-                    if (listitem.getAttribute("altern") == script.key)
-                    {
-                       // console.log("script being set here");
-                       listitem.setAttribute("src", script.value);
-                    }
-                        
+    //            });
 
-                });
-               
-            });
-        }  
-    }, 2000, script_array, client);
+    //        });
+    //    }
+    //}, 2000, script_array, client);
 
     setInterval(function () {
         //Ideally, here we stop the torrent from downloading
         var end = Date.now();
         if (end - start > 15000) {
             //for scripts, check each one and add them after each other
-            scriptTags.forEach(function (listItem, index) {
-                if (listItem.getAttribute("src") == null || listItem.getAttribute("src") == "#") {
-                    listItem.setAttribute("src", listItem.getAttribute("altern"));
-                    var url = listItem.getAttribute("src");
-                    getViaHTTP(url, "data:text/javascript;base64,", listItem);
-                    console.log("set");
-                }
-            })
+            //scriptTags.forEach(function (listItem, index) {
+            //    if (listItem.getAttribute("src") == null || listItem.getAttribute("src") == "#") {
+            //        listItem.setAttribute("src", listItem.getAttribute("altern"));
+            //        var url = listItem.getAttribute("src");
+            //        getViaHTTP(url, "data:text/javascript;base64,", listItem);
+            //        console.log("set");
+            //    }
+            //})
 
-            styleTags.forEach(function (listItem, index) {
-                if (listItem.getAttribute("href") == null || listItem.getAttribute("href") == "#") {
-                    listItem.setAttribute("href", listItem.getAttribute("altern"));
-                    var url = listItem.getAttribute('href');
-                    getViaHTTP(url, "data:text/css;base64,", listItem);
-                    console.log("set");
-                }
-            })
+            //styleTags.forEach(function (listItem, index) {
+            //    if (listItem.getAttribute("href") == null || listItem.getAttribute("href") == "#") {
+            //        listItem.setAttribute("href", listItem.getAttribute("altern"));
+            //        var url = listItem.getAttribute('href');
+            //        getViaHTTP(url, "data:text/css;base64,", listItem);
+            //        console.log("set");
+            //    }
+            //})
 
             imageTags.forEach(function (listItem, index) {
                 if (listItem.getAttribute("src") == null || listItem.getAttribute("src") == "#") {
@@ -28665,61 +28666,63 @@ window.onload = function () {
                     getImage(listItem);
                     console.log("set");
                 }
-            })  
-        }   
-    }, 3000);   
+            })
+        }
+    }, 3000);
 };
 
 function onTorrent(torrent) {
-    //torrent.files.forEach(function (file) {
-    //    file.getBuffer(function (err, b) {
 
-           
-    //        var end = Date.now();
-    //        console.log("time diff: " + (end - start));
-    //        if (err) return log(err.message)
-    //        var payload = JSON.parse(b.toString('utf8'))     
-    //        var obj_base64 = payload.obj;
+    console.log("on torrent is called ");
+    torrent.files.forEach(function (file) {
+        file.getBuffer(function (err, b) {
 
-    //        if (obj_base64.includes("data:image/png;base64")) {
-    //            console.log("got image ");
-               
-    //            var imageTags = Array.from(document.getElementsByTagName("img"));
-    //            imageTags.forEach(function (listItem, index) {
-    //                if (listItem.getAttribute("altern") == payload.resource) {
-    //                    listItem.src = obj_base64;
-    //                    localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
-    //                }
-    //            });
-    //        }
-    //        else if (obj_base64.includes("data:text/javascript;base64")) {
-    //            console.log("got script");
 
-    //            var scriptTags = Array.from(document.getElementsByTagName("script"));
-    //            scriptTags.forEach(function (listItem, index) {
-    //                if (listItem.getAttribute("altern") == payload.resource) {
-    //                    console.log("adding script to array");
-    //                    script_array.push({
-    //                        key : listItem.getAttribute("altern"),
-    //                        value : obj_base64
-    //                    });
-    //                    localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
-    //                }
-    //            });
-    //        }
-    //        else if (obj_base64.includes("data:text/css;base64")) {
-    //            console.log("got style");
+            var end = Date.now();
+            console.log("time diff: " + (end - start));
+            if (err) return log(err.message)
+            var payload = JSON.parse(b.toString('utf8'))
+            var obj_base64 = payload.obj;
 
-    //            var styleTags = Array.from(document.getElementsByTagName("link"));
-    //            styleTags.forEach(function (listItem, index) {
-    //                if (listItem.getAttribute("altern") == payload.resource) {
-    //                    listItem.setAttribute("href", obj_base64);
-    //                    localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
-    //                }
-    //            });
-    //        }
-    //    })
-    //})
+            if (obj_base64.includes("data:image/png;base64")) {
+                console.log("got image ");
+
+                var imageTags = Array.from(document.getElementsByTagName("img"));
+                imageTags.forEach(function (listItem, index) {
+                    if (listItem.getAttribute("altern") == payload.resource) {
+                        listItem.src = obj_base64;
+                        localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
+                    }
+                });
+            }
+            //else if (obj_base64.includes("data:text/javascript;base64")) {
+            //    console.log("got script");
+
+            //    var scriptTags = Array.from(document.getElementsByTagName("script"));
+            //    scriptTags.forEach(function (listItem, index) {
+            //        if (listItem.getAttribute("altern") == payload.resource) {
+            //            console.log("adding script to array");
+            //            script_array.push({
+            //                key: listItem.getAttribute("altern"),
+            //                value: obj_base64
+            //            });
+            //            localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
+            //        }
+            //    });
+            //}
+            //else if (obj_base64.includes("data:text/css;base64")) {
+            //    console.log("got style");
+
+            //    var styleTags = Array.from(document.getElementsByTagName("link"));
+            //    styleTags.forEach(function (listItem, index) {
+            //        if (listItem.getAttribute("altern") == payload.resource) {
+            //            listItem.setAttribute("href", obj_base64);
+            //            localStorage.setItem(listItem.getAttribute("altern"), obj_base64);
+            //        }
+            //    });
+            //}
+        })
+    })
 }
 
 function getViaHTTP(url, heading, listItem) {
@@ -28753,21 +28756,14 @@ function getViaHTTP(url, heading, listItem) {
 
 function getImage(listItem) {
     var image = new Image();
-
-    // create an empty canvas element
     var canvas = document.createElement("canvas"),
         canvasContext = canvas.getContext("2d");
 
     image.onload = function () {
-
-        //Set canvas size is same as the picture
         canvas.width = image.width;
         canvas.height = image.height;
-
-        // draw image into canvas element
         canvasContext.drawImage(image, 0, 0, image.width, image.height);
 
-        // get canvas contents as a data URL (returns png format by default)
         var dataURL = canvas.toDataURL("image/png");
         localStorage.setItem(listItem.getAttribute("src"), dataURL);
         seed(listItem.getAttribute("src"), dataURL);
