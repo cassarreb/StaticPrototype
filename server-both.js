@@ -11,7 +11,7 @@ var start = Date.now();
 var mid1 = 0;
 var mid2 = 0;
 var served = 0;
-var k = 35;
+var k = 34;
 console.log(k);
 
 
