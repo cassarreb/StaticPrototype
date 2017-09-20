@@ -28413,10 +28413,12 @@ var EventEmitter = require('events').EventEmitter
 var inherits = require('inherits')
 var System = require('systemjs')
 
-//var docs = {
-//    "/index.html": "fdc3847a90aa0370aced0ced0798ea9214f087f9",
-//    "/link.html": "caf83582da8c16230d73c1a5034e7d94c8d6982b"
-//}
+var docs = {
+    "/index.html": "fdc3847a90aa0370aced0ced0798ea9214f087f9",
+    "/link.html": "caf83582da8c16230d73c1a5034e7d94c8d6982b"
+}
+
+
 
 announceList = [
  ['udp://tracker.openbittorrent.com:80'],
@@ -28447,6 +28449,11 @@ function logLocalStorage(message, req_no, status, timestamp) {
 }
     //server aws: 97ca6830e1cd9d0835dc0f169027d56362ffb3a5
 var path = "fc7bdf2e14d5528dd795df4c8f0176b810f8e41c";
+
+if (docs[window.location.pathname] != null)
+{
+    path = docs[window.location.pathname];
+}
 
 var magnet = 'magnet:?xt=urn:btih:' + path + '&dn=Unnamed+Torrent+1476541118022&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.openwebtorrent.com';
 
