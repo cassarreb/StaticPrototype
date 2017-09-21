@@ -28414,8 +28414,8 @@ var inherits = require('inherits')
 var System = require('systemjs')
 
 var docs = {
-    "/index.html": "0e683283a4b834ef442c8145b0949a24c8916f31",
-    "/link.html": "8717c5cca22d6df230cb348ceb22767aed2d12d4"
+    "/index.html": "4aba8702794c1a4ecf2f0c355b3d6d09498f072c",
+    "/link.html": "4c5b10081070106eb52399ce4278388c25574e90"
 }
 
 
